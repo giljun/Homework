@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main {
+public class J_1053 {
 
 	static final int End = -1;
 
