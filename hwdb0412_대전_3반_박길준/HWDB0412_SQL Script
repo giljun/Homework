@@ -1,0 +1,38 @@
+CREATE TABLE IF NOT EXISTS `mydb`.`Products` (
+  `상품코드` CHAR(12) NOT NULL,
+  `상품명` VARCHAR(45) NOT NULL,
+  `가격` INT NOT NULL,
+  `수량` INT NOT NULL,
+  `Order_주문번호` INT NOT NULL,
+  PRIMARY KEY (`상품코드`, `Order_주문번호`),
+  INDEX `fk_Products_Order1_idx` (`Order_주문번호` ASC) VISIBLE,
+  CONSTRAINT `fk_Products_Order1`
+    FOREIGN KEY (`Order_주문번호`)
+    REFERENCES `mydb`.`Order` (`주문번호`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Order` (
+  `주문번호` INT NOT NULL,
+  `주문금액` INT NOT NULL,
+  `결제여부` TINYINT NOT NULL,
+  `배송여부` TINYINT NOT NULL,
+  `Customer_고객번호` INT NOT NULL,
+  PRIMARY KEY (`주문번호`),
+  INDEX `fk_Order_Customer_idx` (`Customer_고객번호` ASC) VISIBLE,
+  CONSTRAINT `fk_Order_Customer`
+    FOREIGN KEY (`Customer_고객번호`)
+    REFERENCES `mydb`.`Customer` (`고객번호`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Customer` (
+  `고객번호` INT NOT NULL,
+  `고객명` VARCHAR(10) NOT NULL,
+  `고객주소` VARCHAR(100) NOT NULL,
+  `고객연락처1` VARCHAR(20) NOT NULL,
+  `고객연락처2` VARCHAR(20) NULL,
+  PRIMARY KEY (`고객번호`))
+ENGINE = InnoDB
